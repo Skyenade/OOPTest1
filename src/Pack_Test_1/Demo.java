@@ -118,7 +118,8 @@ public class Demo {
 				
 				String update = "new";
 				
-				System.out.println("Which computer would you like to update? ");
+				do {
+					System.out.println("Which computer would you like to update? ");
 					int compNum = kb.nextInt();
 					int arrayPlace = compNum - 1;
 					if (inventory[arrayPlace] == null) {
@@ -126,9 +127,9 @@ public class Demo {
 						System.out.println("Would you like to enter a another computer or quit this operation?");
 						System.out.println("To enter a new computer, type 'new', to quit the operation, type 'quit': ");
 						update = kb.next();
-						if (update == "quit") {
-							break;
-						}
+//						if (update == "quit") {
+//							break;
+//						}
 					} else {
 						int change = 0;
 						
@@ -176,6 +177,8 @@ public class Demo {
 						} while (change != 5);	
 					}
 					
+				} while (update != "quit");
+				break;
 			case 3:
 				System.out.println("Please enter the brand name you want to look for in the inventory: ");
 				String case3brand = kb.next();
