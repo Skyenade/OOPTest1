@@ -204,10 +204,7 @@ public class Demo {
 	public static void findComputersBy(Computer[] inventory, String case3brand) {
 	    for (int i = 0; i < inventory.length; i++) {
 	        if (inventory[i] != null && inventory[i].getBrand().equalsIgnoreCase(case3brand)) {
-	        	System.out.println("Brand: " + inventory[i].getBrand());
-	            System.out.println("Model: " + inventory[i].getModel());
-	            System.out.println("Price: " + inventory[i].getPrice());
-	            System.out.println("SN: " + inventory[i].getSN());
+	        	System.out.println(inventory[i]);
 	        }
 	    }
 	}
@@ -215,10 +212,7 @@ public class Demo {
 	public static void findCheaperThan(Computer[] inventory,double case4Price) {
 		for (int i = 0; i < inventory.length; i++) {
 	        if (inventory[i] != null && inventory[i].getPrice() < case4Price) {
-	        	System.out.println("Brand: " + inventory[i].getBrand());
-	            System.out.println("Model: " + inventory[i].getModel());
-	            System.out.println("Price: " + inventory[i].getPrice());
-	            System.out.println("SN: " + inventory[i].getSN());
+	        	System.out.println(inventory[i]);
 	        }
 	    }
 	}
