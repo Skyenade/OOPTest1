@@ -51,7 +51,7 @@ public class Demo {
 
 				if (passwordChecker) {
 					System.out.println("How many computers do you want to enter: ");
-					int compCount = kb.nextInt();
+					int compAmount = kb.nextInt();
 					boolean hasEmptySpace = false;
 					int filledCount = 0;
 					int arrayPlace = -1;
@@ -65,26 +65,35 @@ public class Demo {
 							filledCount++;
 						}
 					}
-
-					if (hasEmptySpace) {
-						if (compCount <= len) {
-							System.out.println("There are " + (len - filledCount) + " empty spaces in the inventory.");
-							for (int i = arrayPlace; i < compCount; i++) {
-								System.out.println("Please enter the information from the computer: ");
-								System.out.println("what's the brand? ");
-								String b = kb.next();
-								System.out.println("what's the model? ");
-								String m = kb.next();
-								System.out.println("what's the price? ");
-								double p = kb.nextDouble();
-								inventory[arrayPlace + filledCount + i] = new Computer(b, m, p);
+					
+					int inputCount = 0;
+					
+					for(int i = 1; i<=compAmount; i++) {
+						if (hasEmptySpace) {
+							if (compAmount <= len) {
+								System.out.println("There are " + (len - filledCount) + " empty spaces in the inventory.");
+								while(inputCount != compAmount) {
+									System.out.println("Please enter the information from the computer: ");
+									System.out.println("what's the brand? ");
+									String b = kb.next();
+									System.out.println("what's the model? ");
+									String m = kb.next();
+									System.out.println("what's the price? ");
+									double p = kb.nextDouble();
+									inventory[arrayPlace + filledCount] = new Computer(b, m, p);
+									filledCount ++;
+									inputCount++;									
+								}								
+							} else {
+								System.out.println("Not enough space in the inventory.");
+								break;
 							}
-							filledCount += compCount;
-						} else {
-							System.out.println("Not enough space in the inventory.");
 						}
 					}
+
+					
 				}
+				break;
 
 			case 2:
 				System.out.println("Please input your password: ");
@@ -107,34 +116,81 @@ public class Demo {
 				} while (tryCount < 4);
 
 				
-				System.out.println("Which computer would you like to update? ");
-				boolean indexEmpty = false;
+				String update = "new";
 				
-				while (!indexEmpty) {
+				System.out.println("Which computer would you like to update? ");
 					int compNum = kb.nextInt();
 					int arrayPlace = compNum - 1;
-					if (inventory[arrayPlace] != null) {
+					if (inventory[arrayPlace] == null) {
+						System.out.println("There is no Computer at the specified index location. ");
+						System.out.println("Would you like to enter a another computer or quit this operation?");
+						System.out.println("To enter a new computer, type 'new', to quit the operation, type 'quit': ");
+						update = kb.next();
+						if (update == "quit") {
+							break;
+						}
+					} else {
+						int change = 0;
 						
+						do {
+							System.out.println(inventory[arrayPlace]);
+							System.out.println("What information would you like to change? ");
+							System.out.println("1.brand ");
+							System.out.println("2.model ");
+							System.out.println("3.SN ");
+							System.out.println("4.price ");
+							System.out.println("5.Quit");
+							System.out.println("Enter your choice >");	
+							change = kb.nextInt();
+							switch(change){
+								case 1:
+									System.out.println("What's the new brand? ");
+									String newB = kb.next();
+									inventory[arrayPlace].setBrand(newB);
+									System.out.println(inventory[arrayPlace]);
+									break;
+								case 2 :
+									System.out.println("What's the new model? ");
+									String newM = kb.next();
+									inventory[arrayPlace].setModel(newM);
+									System.out.println(inventory[arrayPlace]);
+									break;
+								case 3 :
+									System.out.println("What's the new Serial Number? ");
+									long newSN = kb.nextLong();
+									inventory[arrayPlace].setSN(newSN);
+									System.out.println(inventory[arrayPlace]);
+									break;
+								case 4 :
+									System.out.println("What's the new price? ");
+									double newP = kb.nextDouble();
+									inventory[arrayPlace].setPrice(newP);
+									System.out.println(inventory[arrayPlace]);
+									break;
+								case 5:
+									break;
+								default:
+									System.out.println("Not a valid choice. Enter a valid option. ");									
+							}
+							
+						} while (change != 5);	
 					}
 					
-				}
-				
-				
-				
-				
-				
-				
-				System.out.println("Which computer would you like to update? ");
-				
-				
-				
-				System.out.println("What's the new brand? ");
-				String newB = kb.next();
-				inventory[arrayPlace].setBrand(newB);
-				System.out.println("What's the new model? ");
-				String newM = kb.next();
-				inventory[arrayPlace].setModel(newM);
-				
+			case 3:
+				System.out.println("Please enter the brand name you want to look for in the inventory: ");
+				String case3brand = kb.next();
+				findComputersBy(inventory, case3brand);
+				break;
+			case 4:
+				System.out.println("Please enter the price you want to look for in the inventory: ");
+				double case4Price = kb.nextDouble();
+				findCheaperThan(inventory, case4Price);
+				break;
+			case 5:
+				break;
+			default:
+				System.out.println("Not a valid choice. Please enter another option: ");
+				continue;
 				
 			}
 
@@ -142,28 +198,28 @@ public class Demo {
 
 		kb.close();
 
-//	public static String passwordChecker(String inputPassword) {
-//		int tryCount = 0;
-//		String checkedPass = inputPassword;
-//		while (tryCount <= 3) {
-//			if (inputPassword != "password") {
-//				tryCount++;	
-//			}
-//			
-//		}		
-//		return checkedPass;
-//	}
+	}
+	
+	public static void findComputersBy(Computer[] inventory, String case3brand) {
+	    for (int i = 0; i < inventory.length; i++) {
+	        if (inventory[i] != null && inventory[i].getBrand().equalsIgnoreCase(case3brand)) {
+	        	System.out.println("Brand: " + inventory[i].getBrand());
+	            System.out.println("Model: " + inventory[i].getModel());
+	            System.out.println("Price: " + inventory[i].getPrice());
+	            System.out.println("SN: " + inventory[i].getSN());
+	        }
+	    }
+	}
+	
+	public static void findCheaperThan(Computer[] inventory,double case4Price) {
+		for (int i = 0; i < inventory.length; i++) {
+	        if (inventory[i] != null && inventory[i].getPrice() < case4Price) {
+	        	System.out.println("Brand: " + inventory[i].getBrand());
+	            System.out.println("Model: " + inventory[i].getModel());
+	            System.out.println("Price: " + inventory[i].getPrice());
+	            System.out.println("SN: " + inventory[i].getSN());
+	        }
+	    }
 	}
 
 }
-
-// show in go to the project, not the package, before src
-// copy the path and cd to the path
-// git status
-// git init
-// git add . (or git add --all)  add everything to the staging area
-// git commit -m "message here"
-// now we push to the repository
-// connect the git to the github
-// create a repository and connect with git remote ssh link
-// git connect
