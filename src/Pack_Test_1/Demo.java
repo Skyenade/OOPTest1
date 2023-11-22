@@ -187,6 +187,7 @@ public class Demo {
 				findCheaperThan(inventory, case4Price);
 				break;
 			case 5:
+				System.out.println("The program will end as instructed. ");
 				break;
 			default:
 				System.out.println("Not a valid choice. Please enter another option: ");
