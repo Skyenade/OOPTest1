@@ -1,3 +1,11 @@
+//-------------------------
+// Assignment
+//-------------------------
+// © Maina Canhini Lisboa de Aguiar
+// Written by: Maina Canhini Lisboa de Aguiar - 2392776
+//-------------------------
+
+
 package Pack_Test_1;
 
 public class Computer {
