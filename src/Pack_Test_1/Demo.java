@@ -82,28 +82,54 @@ public class Demo {
 					// if there's enough space in the inventory, it prints how many empty spaces are there and asks for the user to enter information
 					// if there's no space in the inventory, it prints a message, gets out of the loop and goes back to the menu
 					for (int i = 1; i <= compAmount; i++) {
-						if (hasEmptySpace) {
-							if (compAmount <= len) {
-								System.out.println(
-										"There are " + (len - filledCount) + " empty spaces in the inventory.");
-								while (inputCount != compAmount) {
-									System.out.println("Please enter the information from the computer: ");
-									System.out.println("what's the brand? ");
-									String b = kb.next();
-									System.out.println("what's the model? ");
-									String m = kb.next();
-									System.out.println("what's the price? ");
-									double p = kb.nextDouble();
-									inventory[arrayPlace + filledCount] = new Computer(b, m, p);
-									filledCount++;
-									inputCount++;
-								}
-							} else {
-								System.out.println("Not enough space in the inventory.");
-								break;
-							}
-						}
+					    if (hasEmptySpace) {
+					        if (compAmount <= len) {
+					            System.out.println("There are " + (len - filledCount) + " empty spaces in the inventory.");
+					            while (inputCount < compAmount) { 
+					                if (arrayPlace + filledCount >= inventory.length) {
+					                    System.out.println("Not enough space in the inventory to add more computers.");
+					                    break;
+					                }
+
+					                System.out.println("Please enter the information for computer #" + (inputCount + 1) + ":");
+
+					                System.out.print("What's the brand? ");
+					                String b = kb.next(); 
+
+					                System.out.print("What's the model? ");
+					                kb.nextLine(); 
+					                String m = kb.nextLine();
+
+					                System.out.print("What's the price? ");
+					                while (!kb.hasNextDouble()) { 
+					                    System.out.println("Invalid input. Please enter a valid numeric price.");
+					                    kb.next(); 
+					                    System.out.print("What's the price? ");
+					                }
+					                double p = kb.nextDouble();
+
+					                if (p < 0) {
+					                    System.out.println("Price cannot be negative. Please enter valid details again.");
+					                    kb.nextLine(); 
+					                    continue; 
+					                }
+
+					                inventory[arrayPlace + filledCount] = new Computer(b, m, p);
+					                filledCount++;
+					                inputCount++;
+
+					                System.out.println("Computer #" + inputCount + " added successfully.");
+					                kb.nextLine();
+					            }
+					        } else {
+					            System.out.println("Not enough space in the inventory.");
+					            break;
+					        }
+					    }
 					}
+
+
+
 
 				}
 				break;
